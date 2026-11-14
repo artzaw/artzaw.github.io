@@ -1,0 +1,197 @@
+:root {
+  --p: 0;                 /* scroll progress through hero, 0..1 (set by js/main.js) */
+  --bg: #0b0d10;
+  --fg: #f2f2f2;
+  --accent: #3be8c4;      /* VU-meter teal */
+  --topbar-h: 56px;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  line-height: 1.6;
+}
+
+/* ---------- fixed background ---------- */
+.bg {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  opacity: var(--p);
+}
+.bg__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(calc(1.15 - 0.15 * var(--p)));
+  will-change: transform;
+}
+.bg__shade {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(to bottom, rgba(0,0,0,.45), rgba(0,0,0,.25) 40%, rgba(0,0,0,.75));
+}
+.bg__tagline {
+  position: absolute;
+  left: 0; right: 0;
+  bottom: 6vh;
+  margin: 0;
+  padding: 0 16px;
+  text-align: center;
+  font-family: Georgia, "Palatino Linotype", serif;
+  font-style: italic;
+  font-size: clamp(1.4rem, 4vw, 2.8rem);
+  letter-spacing: .02em;
+  text-shadow: 0 2px 12px rgba(0,0,0,.9);
+}
+
+/* ---------- top bar ---------- */
+.topbar {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: var(--topbar-h);
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
+  background: rgba(11,13,16,.6);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  opacity: var(--p);
+  pointer-events: none;
+}
+.topbar[data-active="true"] { pointer-events: auto; }
+.topbar__brand {
+  color: var(--fg);
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 1.25rem;
+  letter-spacing: .06em;
+}
+.topbar__nav { display: flex; gap: 16px; }
+.topbar__nav a { color: var(--fg); text-decoration: none; opacity: .8; font-size: .95rem; }
+.topbar__nav a:hover { opacity: 1; color: var(--accent); }
+
+/* ---------- hero ---------- */
+.hero {
+  position: relative;
+  height: 100vh;
+  height: 100svh;
+  min-height: 420px;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  background: #000;
+}
+.hero__video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: calc(1 - var(--p));
+  transform: translateY(calc(var(--p) * 60px)) scale(calc(1 + var(--p) * .08));
+  will-change: transform, opacity;
+}
+.hero__shade {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, rgba(0,0,0,.35), rgba(0,0,0,.1) 50%, rgba(0,0,0,.6));
+  opacity: calc(1 - var(--p));
+}
+.hero__title {
+  position: relative;
+  margin: 0;
+  padding: 0 16px;
+  font-size: clamp(3rem, 12vw, 9rem);
+  font-weight: 800;
+  letter-spacing: .04em;
+  text-align: center;
+  text-shadow: 0 4px 24px rgba(0,0,0,.8);
+  opacity: calc(1 - var(--p) * 1.6);
+  transform: translateY(calc(var(--p) * -40px));
+}
+.hero__scroll {
+  position: absolute;
+  bottom: 24px;
+  left: 50%;
+  width: 28px; height: 28px;
+  margin-left: -14px;
+  opacity: calc(1 - var(--p) * 4);
+}
+.hero__scroll span {
+  display: block;
+  width: 16px; height: 16px;
+  margin: 0 auto;
+  border-right: 3px solid var(--fg);
+  border-bottom: 3px solid var(--fg);
+  transform: rotate(45deg);
+  animation: bob 1.6s ease-in-out infinite;
+}
+@keyframes bob {
+  0%, 100% { transform: translateY(0) rotate(45deg); }
+  50%      { transform: translateY(8px) rotate(45deg); }
+}
+
+/* ---------- content ---------- */
+.content {
+  max-width: 880px;
+  margin: 0 auto;
+  padding: calc(var(--topbar-h) + 24px) 16px 0;
+}
+.card {
+  scroll-margin-top: calc(var(--topbar-h) + 16px);
+  margin: 0 0 32px;
+  padding: 24px;
+  border-radius: 16px;
+  background: rgba(11,13,16,.62);
+  border: 1px solid rgba(255,255,255,.12);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+.card h2 { margin: 0 0 12px; color: var(--accent); letter-spacing: .04em; }
+.card ul { margin: 0; padding-left: 1.2em; }
+.card img { display: block; width: 100%; height: auto; border-radius: 10px; }
+
+/* extra room at the end so the tagline on the background is visible */
+.spacer { height: 38vh; }
+
+.footer {
+  position: fixed;
+  left: 0; right: 0;
+  bottom: 0;
+  padding: 6px 16px;
+  text-align: center;
+  font-size: .75rem;
+  color: rgba(255,255,255,.7);
+  text-shadow: 0 1px 4px rgba(0,0,0,.9);
+  opacity: var(--p);
+  pointer-events: none;
+}
+
+/* ---------- reveal on scroll ---------- */
+.js .reveal { opacity: 0; transform: translateY(28px); transition: opacity .7s ease, transform .7s ease; }
+.js .reveal.is-visible { opacity: 1; transform: none; }
+
+/* ---------- small screens ---------- */
+@media (max-width: 560px) {
+  .topbar__nav { gap: 10px; }
+  .topbar__nav a { font-size: .85rem; }
+}
+
+/* ---------- reduced motion ---------- */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .hero__video { display: none; }
+  .hero { background: #000 url("../picture/banner-poster.jpg") center / cover no-repeat; }
+  .bg__img, .hero__title, .hero__video { transform: none; }
+  .hero__scroll span { animation: none; }
+  .js .reveal { opacity: 1; transform: none; transition: none; }
+}

@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ArturZ</title>
+  <meta name="description" content="ArturZ – a Sansui QS-500 4-channel rear amplifier.">
+  <meta name="theme-color" content="#0b0d10">
+  <link rel="preload" as="image" href="picture/banner-poster.jpg">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <!-- Fixed background photo; fades in as the hero is scrolled away -->
+  <div class="bg" aria-hidden="true">
+    <img class="bg__img"
+         src="picture/bg.jpg"
+         srcset="picture/bg-1280.jpg 1280w, picture/bg.jpg 2000w"
+         sizes="100vw" alt="">
+    <div class="bg__shade"></div>
+    <p class="bg__tagline">Build it once, enjoy it all over again</p>
+  </div>
+
+  <!-- Sticky top bar; title docks here after the hero -->
+  <header class="topbar">
+    <a class="topbar__brand" href="#top">ArturZ</a>
+    <nav class="topbar__nav" aria-label="Main">
+      <a href="#about">About</a>
+      <a href="#specs">Specs</a>
+      <a href="#gallery">Gallery</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <!-- Hero banner: looping video -->
+  <section class="hero" id="top">
+    <video class="hero__video" autoplay loop muted playsinline preload="metadata"
+           poster="picture/banner-poster.jpg" aria-hidden="true">
+      <source src="picture/sansui_qs500_vu_meters.mp4" type="video/mp4">
+    </video>
+    <div class="hero__shade"></div>
+    <h1 class="hero__title">ArturZ</h1>
+    <a class="hero__scroll" href="#about" aria-label="Scroll down"><span></span></a>
+  </section>
+
+  <main class="content">
+    <section class="card reveal" id="about">
+      <h2>About</h2>
+      <p>The Sansui QS-500 is a 4-channel rear amplifier from the quadraphonic era,
+         with four illuminated VU meters, a front/rear balance control and a
+         built-in synthesizer/decoder. This page is a home for my restoration.</p>
+    </section>
+
+    <section class="card reveal" id="specs">
+      <h2>Specs</h2>
+      <ul>
+        <li>Model: Sansui QS-500</li>
+        <li>Type: 4-channel rear amplifier</li>
+        <li>Meters: 4 × VU</li>
+      </ul>
+    </section>
+
+    <section class="card reveal" id="gallery">
+      <h2>Gallery</h2>
+      <img src="picture/bg-1280.jpg" alt="Front panel of the Sansui QS-500 with four VU meters" loading="lazy">
+    </section>
+
+    <section class="card reveal" id="contact">
+      <h2>Contact</h2>
+      <p>Contact details coming soon.</p>
+    </section>
+  </main>
+
+  <div class="spacer" aria-hidden="true"></div>
+
+  <footer class="footer">
+    <small>&copy; 2026 Artur Z All rights reserved.</small>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
